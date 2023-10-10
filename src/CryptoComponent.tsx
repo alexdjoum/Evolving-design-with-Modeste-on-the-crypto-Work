@@ -3,7 +3,7 @@ import { sha256 } from 'js-sha256';
 import md5 from 'md5'
 import Input from '@mui/material/Input';
 import { styled } from '@mui/material/styles';
-import {Button, TextField} from "@mui/material";
+import {Button, Chip, FormControl, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send"
 
 
@@ -26,7 +26,27 @@ function CryptoComponent() {
 
     return (
         <div>
-            <label>
+            <br />
+            <FormControl>
+                <InputLabel id="demo-simple-select-label">Hashing algorithm</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={hashAlgorithm}
+                    label="Algorithme de hachage"
+                    onChange={(e) =>
+                    {
+                        setHashedValue('');
+                        setHashAlgorithm(e.target.value)}
+                    }
+                >
+                    <MenuItem value="md5">Md5</MenuItem>
+                    <MenuItem value="sha256">Sha-256</MenuItem>
+
+                </Select>
+            </FormControl>
+            <br/>
+            {/*<label>
                 Choisissez l'algorithme de hachage :
                 <select
                     value={hashAlgorithm}
@@ -39,28 +59,20 @@ function CryptoComponent() {
                     <option value="md5">MD5</option>
                     <option value="sha256">SHA-256</option>
                 </select>
-            </label>
+            </label>*/}
             <br />
-            <input
+            {/*<input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)} />
             <button onClick={handleHash}>Hacher</button>
             <p>Valeur hachée en {hashAlgorithm}: {hashedValue === ""
                 ? "veillez Entrer la valeur à hacher et ensuite cliquer sur le bouton": hashedValue}
-            </p>
-
-            <div className="form-outline">
-                <input type="text" id="formTextExample1" className="form-control" aria-describedby="textExample1"/>
-                <label className="form-label" htmlFor="formTextExample1">Example label</label>
-            </div>
-            <div id="textExample1" className="form-text">
-                We'll never share your email with anyone else.
-            </div>
+            </p>*/}
 
             <TextField
                 id="outlined-controlled"
-                label="Controlled"
+                label="Value to hash"
                 value={inputValue}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                     setInputValue(event.target.value);
@@ -74,6 +86,14 @@ function CryptoComponent() {
             >
                 Send
             </Button>
+
+            <p>
+                Valeur hachée en 
+                <Chip label={hashAlgorithm} color="primary" />
+
+                : {hashedValue === ""
+                ? "veillez Entrer la valeur à hacher et ensuite cliquer sur le bouton": hashedValue}
+            </p>
         </div>
     );
 }
