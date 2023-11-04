@@ -21,25 +21,23 @@ export const initialState = {
 
 type customizationAction =
     | { type: "reset" }
-    | { type: SET_MENU; value: State["count"] }
+    | { type: "SET_MENU"; /*value: State["count"]*/ }
 
 // ==============================|| CUSTOMIZATION REDUCER ||============================== //
 
 const customizationReducer = (state: State, action: customizationAction): State => {
-  let id;
   switch (action.type) {
-    case actionTypes.MENU_OPEN:
-      id = action.id;
+    case "SET_MENU":
       return {
         ...state,
-        isOpen: [id]
+        isOpen: state.isOpen
       };
-    case actionTypes.SET_MENU:
+    case "SET_MENU":
       return {
         ...state,
-        opened: action.opened
+        opened: state.opened
       };
-    case actionTypes.SET_FONT_FAMILY:
+    /*case actionTypes.SET_FONT_FAMILY:
       return {
         ...state,
         fontFamily: action.fontFamily
@@ -48,7 +46,7 @@ const customizationReducer = (state: State, action: customizationAction): State 
       return {
         ...state,
         borderRadius: action.borderRadius
-      };
+      };*/
     default:
       return state;
   }
