@@ -1,10 +1,13 @@
+
 import React,  { useState } from 'react';
-import { sha256 } from 'js-sha256';
-import md5 from 'md5'
+import { sha256 } from './functions/sha256_functions';
+import {md5} from './functions/md5 functions'
+import {sha1} from './functions/sha1'
 import Input from '@mui/material/Input';
 import { styled } from '@mui/material/styles';
 import {Button, Chip, FormControl, InputLabel, MenuItem, Select, Stack, TextField} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send"
+
 
 
 function CryptoComponent() {
@@ -19,6 +22,8 @@ function CryptoComponent() {
             hashedInput = md5(inputValue);
         } else if (hashAlgorithm === 'sha256') {
             hashedInput = sha256(inputValue);
+        } else if (hashAlgorithm === 'sha1') {
+            hashedInput = sha1(inputValue)
         }
 
         setHashedValue(hashedInput);
@@ -42,6 +47,7 @@ function CryptoComponent() {
                 >
                     <MenuItem value="md5">Md5</MenuItem>
                     <MenuItem value="sha256">Sha-256</MenuItem>
+                    <MenuItem value="sha1">Sha1</MenuItem>
 
                 </Select>
             </FormControl>

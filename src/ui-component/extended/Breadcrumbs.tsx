@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -8,8 +9,8 @@ import { Box, Card, Divider, Grid, Typography } from '@mui/material';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project imports
-import config from 'config';
-import { gridSpacing } from 'store/constant';
+import config from '../../config'
+import { gridSpacing } from '../../store/constant';
 
 // assets
 import { IconTallymark1 } from '@tabler/icons';
@@ -26,8 +27,28 @@ const linkSX = {
 };
 
 // ==============================|| BREADCRUMBS ||============================== //
+interface BreadcrumbsProps {
+  card: boolean,
+  divider: boolean,
+  icon: boolean,
+  icons: boolean,
+  maxItems: number | undefined,
+  navigation: Record<string, any>,
+  rightAlign: boolean,
+  separator: Record<string, any> | (() => void)
+  title: boolean,
+  titleBottom: boolean
 
-const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAlign, separator, title, titleBottom, ...others }) => {
+}
+type Menu = {
+  breadcrumbs: Boolean;
+  children?: Menu[];
+  icon: any;
+  title: any;
+  type: string;
+  url?: string;
+};
+const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAlign, separator, title, titleBottom, ...others }: BreadcrumbsProps) => {
   const theme = useTheme();
 
   const iconStyle = {
@@ -38,13 +59,13 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
     color: theme.palette.secondary.main
   };
 
-  const [main, setMain] = useState();
-  const [item, setItem] = useState();
+  const [main, setMain] = useState<Menu | undefined>(undefined);
+  const [item, setItem] = useState<Menu | undefined>(undefined);
 
   // set active item state
-  const getCollapse = (menu) => {
+  const getCollapse = (menu: Menu): void => {
     if (menu.children) {
-      menu.children.filter((collapse) => {
+      menu.children.filter((collapse: Menu) => {
         if (collapse.type && collapse.type === 'collapse') {
           getCollapse(collapse);
         } else if (collapse.type && collapse.type === 'item') {
@@ -59,7 +80,7 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
   };
 
   useEffect(() => {
-    navigation?.items?.map((menu) => {
+    navigation?.items?.map((menu: Menu) => {
       if (menu.type && menu.type === 'group') {
         getCollapse(menu);
       }
@@ -69,6 +90,8 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
 
   // item separator
   const SeparatorIcon = separator;
+
+  // @ts-ignore
   const separatorIcon = separator ? <SeparatorIcon stroke={1.5} size="1rem" /> : <IconTallymark1 stroke={1.5} size="1rem" />;
 
   let mainContent;
@@ -111,18 +134,18 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
     );
 
     // main
-    if (item.breadcrumbs !== false) {
+    if (item.breadcrumbs) {
       breadcrumbContent = (
         <Card
-          sx={{
-            marginBottom: card === false ? 0 : theme.spacing(gridSpacing),
-            border: card === false ? 'none' : '1px solid',
-            borderColor: theme.palette.primary[200] + 75,
-            background: card === false ? 'transparent' : theme.palette.background.default
-          }}
+            sx={{
+              marginBottom: !card ? 0 : theme.spacing(gridSpacing),
+              border: !card ? 'none' : '1px solid',
+              borderColor: theme.palette.primary.main + 75,
+              background: !card ? 'transparent' : theme.palette.background.default
+            }}
           {...others}
         >
-          <Box sx={{ p: 2, pl: card === false ? 0 : 2 }}>
+          <Box sx={{ p: 2, pl: !card ? 0 : 2 }}>
             <Grid
               container
               direction={rightAlign ? 'row' : 'column'}
@@ -162,7 +185,7 @@ const Breadcrumbs = ({ card, divider, icon, icons, maxItems, navigation, rightAl
               )}
             </Grid>
           </Box>
-          {card === false && divider !== false && <Divider sx={{ borderColor: theme.palette.primary.main, mb: gridSpacing }} />}
+          {!card && divider && <Divider sx={{ borderColor: theme.palette.primary.main, mb: gridSpacing }} />}
         </Card>
       );
     }

@@ -1,4 +1,4 @@
-// @ts-nocheck
+//@ts-check
 import React, {useState} from "react";
 //import md5 from "md5";
 //import {sha256} from "js-sha256";
@@ -15,7 +15,9 @@ import {
     Stack,
     OutlinedInput,
     Typography,
-    useMediaQuery
+    //createTheme,
+    useTheme,
+   // useMediaQuery
 } from "@mui/material";
 //import SendIcon from "@mui/icons-material/Send";
 
@@ -25,20 +27,29 @@ import * as Yup from 'yup';
 
 // project imports
 //import useScriptRef from 'hooks/useScriptRef';
-// @ts-ignore
-import AnimateButton from 'src/ui-component/extended/AnimateButton';
-import {useTheme} from "@mui/material/styles";
+
+import AnimateButton from './ui-component/extended/AnimateButton';
+//import {useTheme} from "@mui/material/styles";
 import useScriptRef from "./hooks/useScriptRef";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useSelector} from "react-redux";
+import {RootState} from "./store/reducer";
+import {State} from "./store/customizationReducer";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
-import Google from 'assets/images/icons/social-google.svg';
 
+//import Google from 'assets/images/icons/social-google.svg';
+
+
+//sx={{ ...theme.typography.customInput }}
 function CryptoComponent({ ...others}) {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
-    const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
-    const customization = useSelector((state) => state.customization);
+    //const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+    const customization: State = useSelector((state: RootState) => state.customizationReducer);
     const [checked, setChecked] = useState(true);
     const googleHandler = async () => {
         console.error('Login');
@@ -49,15 +60,17 @@ function CryptoComponent({ ...others}) {
         setShowPassword(!showPassword);
     };
 
-    const handleMouseDownPassword = (event) => {
+    const handleMouseDownPassword = (event: any) => {
         event.preventDefault();
     };
+
+    //console.log("Je consulte le contenu ==>>",theme.typography)
 
     return (
         <>
             <Grid container direction="column" justifyContent="center" spacing={2}>
                 <Grid item xs={12}>
-                    <AnimateButton>
+                    <AnimateButton offset={10}>
                         <Button
                             disableElevation
                             fullWidth
@@ -71,7 +84,7 @@ function CryptoComponent({ ...others}) {
                             }}
                         >
                             <Box sx={{ mr: { xs: 1, sm: 2, width: 20 } }}>
-                                <img src={Google} alt="google" width={16} height={16} style={{ marginRight: matchDownSM ? 8 : 16 }} />
+                                {/*<img src={Google} alt="google" width={16} height={16} style={{ marginRight: matchDownSM ? 8 : 16 }} />*/}
                             </Box>
                             Sign in with Google
                         </Button>
@@ -96,7 +109,7 @@ function CryptoComponent({ ...others}) {
                                 borderColor: `${theme.palette.grey[100]} !important`,
                                 color: `${theme.palette.grey[900]}!important`,
                                 fontWeight: 500,
-                                borderRadius: `${customization.borderRadius}px`
+                                borderRadius: `${customization.borderRadius}px` // Assurez-vous que customization est défini et contient la propriété borderRadius
                             }}
                             disableRipple
                             disabled
@@ -134,7 +147,7 @@ function CryptoComponent({ ...others}) {
                         console.error(err);
                         if (scriptedRef.current) {
                             setStatus({ success: false });
-                            setErrors({ submit: err.message });
+                            setErrors({ submit: err as string ?? "Erreur inconnue" });
                             setSubmitting(false);
                         }
                     }
@@ -142,7 +155,19 @@ function CryptoComponent({ ...others}) {
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit} {...others}>
-                        <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
+                        <FormControl
+                            fullWidth
+                            error={Boolean(touched.email && errors.email)}
+                            sx={{
+                                fontSize: '16px',
+                                color: 'blue',
+                                padding: '10px',
+                                border: '1px solid gray',
+                                borderRadius: '4px',
+                                backgroundColor: 'lightgray',
+                                // Ajoutez d'autres styles personnalisés selon vos besoins
+                            }}
+                        >
                             <InputLabel htmlFor="outlined-adornment-email-login">Email Address / Username</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-email-login"
@@ -161,7 +186,18 @@ function CryptoComponent({ ...others}) {
                             )}
                         </FormControl>
 
-                        <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.customInput }}>
+                        <FormControl
+                            fullWidth
+                            error={Boolean(touched.password && errors.password)}
+                            sx={{
+                                fontSize: '16px',
+                                color: 'blue',
+                                padding: '10px',
+                                border: '1px solid gray',
+                                borderRadius: '4px',
+                                backgroundColor: 'lightgray',
+                                // Ajoutez d'autres styles personnalisés selon vos besoins
+                            }}>
                             <InputLabel htmlFor="outlined-adornment-password-login">Password</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-password-login"
@@ -210,7 +246,7 @@ function CryptoComponent({ ...others}) {
                         )}
 
                         <Box sx={{ mt: 2 }}>
-                            <AnimateButton>
+                            <AnimateButton offset={10}>
                                 <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="secondary">
                                     Sign in
                                 </Button>

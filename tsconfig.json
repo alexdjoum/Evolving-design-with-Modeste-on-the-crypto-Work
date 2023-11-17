@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["es6", "dom"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -15,10 +11,16 @@
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "strictNullChecks": true
+  },
+  "paths": {
+    "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
   },
   "include": [
     "src"

@@ -1,5 +1,7 @@
 //import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit'
+import rootReducers from './rootReducers'
+import {useDispatch} from "react-redux";
 // reducer import
 import customizationReducer from './customizationReducer';
 
@@ -9,13 +11,10 @@ import customizationReducer from './customizationReducer';
   customization: customizationReducer
 });*!/*/
 
-const store = configureStore({
-  reducer: {
-    customization: customizationReducer
-  }
+ export const store = configureStore({
+  reducer: rootReducers
 })
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
+export const useAppDispatch: () => AppDispatch = useDispatch
+export type RootState = ReturnType<typeof store.getState>
