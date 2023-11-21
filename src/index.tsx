@@ -5,25 +5,29 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from './store/reducer'
-import CssBaseline from '@mui/material/CssBaseline';
+import {CssBaseline} from '@mui/material';
 import {
     experimental_extendTheme as extendTheme,
     Experimental_CssVarsProvider as CssVarsProvider,
 } from '@mui/material/styles';
 
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const theme = extendTheme({
+/*const theme = extendTheme({
     cssVarPrefix: 'md-demo',
-});
+});*/
 root.render(
   <React.StrictMode>
-      <Provider store={store}>
-          <CssBaseline />
-        <App />
-      </Provider>
+      <StyledEngineProvider injectFirst>
+              <Provider store={store}>
+                  <CssBaseline />
+                  <App />
+              </Provider>
+      </StyledEngineProvider>
   </React.StrictMode>
 );
 

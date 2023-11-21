@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { forwardRef } from 'react';
+import {forwardRef, ReactNode} from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -11,8 +11,32 @@ const headerSX = {
 };
 
 // ==============================|| CUSTOM MAIN CARD ||============================== //
+interface MainCardProps {
+    border?: boolean;
+    boxShadow?: boolean;
+    children?: React.ReactNode;
+    content?: boolean;
+    contentClass?: string;
+    contentSX?: React.CSSProperties;
+    darkTitle?: boolean;
+    secondary?: React.ReactNode | string | object;
+    shadow?: string;
+    sx?: React.CSSProperties;
+    title?: React.ReactNode | string | object;
+};
 
-const MainCard = forwardRef(
+const formatTitle = (title: React.ReactNode | string | object): React.ReactNode => {
+    if (typeof title === 'string' || typeof title === 'number') {
+        return (
+            <Typography variant="body1" component="div">
+                {title}
+            </Typography>
+        );
+    } else {
+        return title as ReactNode;
+    }
+};
+const MainCard = forwardRef<HTMLDivElement, MainCardProps>(
   (
     {
       border = true,
@@ -38,7 +62,7 @@ const MainCard = forwardRef(
         {...others}
         sx={{
           border: border ? '1px solid' : 'none',
-          borderColor: theme.palette.primary[200] + 25,
+          borderColor: theme.palette.primary.main + 25,
           ':hover': {
             boxShadow: boxShadow ? shadow || '0 2px 14px 0 rgb(32 40 45 / 8%)' : 'inherit'
           },
@@ -46,7 +70,19 @@ const MainCard = forwardRef(
         }}
       >
         {/* card header and action */}
-        {title && <CardHeader sx={headerSX} title={darkTitle ? <Typography variant="h3">{title}</Typography> : title} action={secondary} />}
+        {title && <CardHeader
+            sx={headerSX}
+            title={
+                darkTitle ? (
+                    <Typography variant="h3" component="div">
+                        {title as ReactNode}
+                    </Typography>
+                ) : (
+                    title as React.ReactNode
+                )
+            }
+            action={secondary as ReactNode}
+        />}
 
         {/* content & header divider */}
         {title && <Divider />}

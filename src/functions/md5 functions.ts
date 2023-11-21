@@ -64,7 +64,7 @@ export function md5(message: string): string {
             const temp = d;
             d = c;
             c = b;
-            b = leftrotate((a + f + k[j] + w[g]), r[j]) + b;
+            b = leftRotate((a + f + k[j] + w[g]), r[j]) + b;
             a = temp;
         }
 
@@ -80,7 +80,7 @@ export function md5(message: string): string {
         littleEndianToHex(h3);
 }
 
-function leftrotate(value: number, count: number): number {
+function leftRotate(value: number, count: number): number {
     return (value << count) | (value >>> (32 - count));
 }
 
