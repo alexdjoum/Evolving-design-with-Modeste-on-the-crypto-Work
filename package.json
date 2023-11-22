@@ -23,6 +23,7 @@
     "formik": "^2.4.5",
     "framer-motion": "^10.16.4",
     "hash-wasm": "^4.10.0",
+    "heroku": "^8.7.1",
     "js-sha256": "^0.10.1",
     "md5": "^2.3.0",
     "react": "^18.2.0",
@@ -61,5 +62,6 @@
   },
   "browser": {
     "crypto": false
-  }
+  },
+  "homepage": "http://myhash.com/"
 }

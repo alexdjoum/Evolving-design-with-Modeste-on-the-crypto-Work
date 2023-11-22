@@ -16,7 +16,7 @@ import DesignHashFile from "./DesignHashFile";
 function App() {
   return (
     <>
-        <BrowserRouter>
+        <BrowserRouter basename="/">
             <Routes>
                 <Route
                     element={<DesignForm />}

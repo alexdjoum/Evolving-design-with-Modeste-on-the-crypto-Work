@@ -69,8 +69,9 @@ function DesignForm() {
                     </div>
                     <div className="form-field d-flex align-items-center">
                         <span className="fas fa-key"></span>
+
                         <input
-                            //type="password"
+                            type=""
                             //name="message"
                             //id="message"
                             //placeholder="Password"

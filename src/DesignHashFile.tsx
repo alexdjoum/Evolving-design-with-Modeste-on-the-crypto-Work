@@ -101,7 +101,21 @@ function DesignHashFile() {
                         className="form-field d-flex align-items-center"
                         style={{ paddingRight: "10px"}}>
                         <span className="far fa-user"></span>
-                        <input type="file" onChange={handleFileChange} />
+
+                        <input
+                            style={{
+                                width: "100%",
+                                background: "rgba(238, 242, 244, 0)",
+                                border: "none",
+                                outline: "none",
+                                fontSize: "1.2rem",
+                                color: "rgb(102, 102, 102)",
+                                padding: "10px 15px 10px 10px"
+                            }}
+                            type="file" onChange={handleFileChange} />
+
+
+
                         {/*<button onClick={handleHashButtonClick}>Hasher le fichier</button>*/}
 
                         {/*<input type="text" name="userName" id="userName" placeholder="Username" />*/}
