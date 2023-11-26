@@ -85,7 +85,7 @@ function DesignForm() {
                         onClick={handleHash}>Click here to hash
                     </button>
                 </form>
-                <p>
+                <p className="indicate">
                     Valeur hachée en
                     <span style={{color: "blue"}}> {hashAlgorithm} </span>
 
@@ -97,11 +97,12 @@ function DesignForm() {
                 </p>
                 <div className="text-center fs-6">
                     <span
+                        className="teacher"
                         style={{
                             position: "absolute",
                             color:"#039BE5",
-                            bottom: "6%",
-                            right: "30%",
+                            bottom: "26%",
+                            right: "36%",
                             fontSize: "18px"
                         }}
                     >Sous la supervision de DR TALE KALASHI</span>
@@ -110,11 +111,19 @@ function DesignForm() {
                     <span
                         style={{
                             position: "absolute",
-                            top: "95%",
-                            right: "30%"
+                            top: "76%",
+                            right: "36%"
                     }}>Année Academique 2023-2024</span>
 
-                    <Link to="/DesignHashFile">Click here to hash a file</Link>
+                    <Link
+                        style={{
+                            fontSize: "26px"
+                        }}
+                        className="link-to-hash-file"
+                        to="/DesignHashFile"
+                    >
+                        Click here to hash a file
+                    </Link>
                 </div>
             </div>
         </>
