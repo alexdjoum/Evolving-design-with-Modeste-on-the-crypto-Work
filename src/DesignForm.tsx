@@ -63,7 +63,7 @@ function DesignForm() {
                             }>
                             <option value="md5">md5</option>
                             <option value="sha256">sha256</option>
-                            <option value="sha1">sha1</option>
+                            {/*<option value="sha1">sha1</option>*/}
                         </select>
                         {/*<input type="text" name="userName" id="userName" placeholder="Username" />*/}
                     </div>
@@ -105,7 +105,7 @@ function DesignForm() {
                             right: "36%",
                             fontSize: "18px"
                         }}
-                    >Sous la supervision de DR TALE KALASHI</span>
+                    >Sous la supervision de DR Hervé TALE KALACHI</span>
                     <br/>
 
                     <span
